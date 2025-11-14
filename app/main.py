@@ -1,11 +1,11 @@
-from fastapi import FastAPI
 import logging
 
 app = FastAPI()
 logging.basicConfig(level=logging.INFO)
 
-@app.get("/")
-def read_root():
-    logging.info("Petición recibida en /")
-    return {"mensaje": "Hola desde el microservicio con Sidecar"}
+@app.get("/mensaje")
+def mensaje(texto: str = Query(...)):
+    saludo = f"Hola, {texto}!"
+    logging.info(f"Saludando con: {saludo}")
+    return {"mensaje": saludo}
 
